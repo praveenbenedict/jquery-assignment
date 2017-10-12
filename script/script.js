@@ -1,31 +1,19 @@
 $(document).ready(function() {
 
-    var accessToken = "EAACEdEose0cBAF6oy73Xoes1AKLUvf6Sqdc52dN4qIgI5INsifnvqnLMAXaZB0vhY0gCcoc1FA1PPdnZBjTVXLA9n2TzPDPR3wWStyZBRxBU5sVYp2dNI2OJusg6ky64R1iRRm5hZC5WqdQeKjMsZBV9h9w2oLgLm3EgogwgIU66vnQncfAuZB6aBs6bZBQC6KKX7vEmTI8OgZDZD";
+    var accessToken = "EAACEdEose0cBAOXZCgh5pU6gZB4XgkHkcLy4jAbdjhCtc6ZCdHZANOZAmXFBtFzVyMsqU6Unx0LiWp3BJfib6N8XFqVMdy2TtK5bwwwDegY3cma5HdKZBZAHpAkA9KpI2h7lZCLYchx3LFOam0WsCc6UDMrCoZBzmAyPV4aEVxpzTEeskpF236ZAqFZBC9cNmpujcIZD";
     // console.log(accessToken);
     $.ajax('https://graph.facebook.com/me?access_token='+accessToken+'&fields=id,name,email,website,location,hometown,age_range,gender,birthday,relationship_status,posts,religion,political,family,cover,work,education,favorite_athletes,favorite_teams,quotes', {
-        success: printUserData
+        success: printUserData,
+        error: printErrorMessage
     });
     $.ajax('https://graph.facebook.com/me/feed? fields=picture,full_picture,message,link,description,story&access_token='+accessToken,{
-        success: printUserFeed
+        success: printUserFeed,
+        error: printErrorMessage
     });
-    // $.ajax('https://graph.facebook.com/me/feed?fields=picture,full_picture,message,link,description,story&access_token='+accessToken,{
-    //     success: printUserFeed
-    // });
 });
 function printUserData(response){
     console.log(response);
     console.log(response.feed);
-    // console.log(response.about);
-    // console.log(response.relationship_status);
-    // console.log(response.age_range.min);
-    // console.log(response.feed);
-    // if(response.hasOwnProperty('cover')){
-    //     $('#cover').css('background-image', 'url(' + cover.source +')' );  
-    //     $('#cover').css('width', '100%');
-    //     $('cover').css('height', '40vh');
-    //     $('cover').css('background-repeat','no-repeat');
-    //     $('cover').css('background-position', 'center');
-    // }
     if(response.hasOwnProperty('name')){
         $('#name').text(response.name);
     } 
@@ -170,24 +158,23 @@ function printUserFeed(response) {
         $.each(response.data, function(index,value){
             // console.log(value.story);
             $('#feed').append('<div class="feed-container feed-'+index+'"></div>');
-            // // console.log(value.story);
-            // $.get('https://graph.facebook.com/v2.2/#'+value.id+'?fields=attachments&fields=attachments&access_token=#'+accessToken,function(){
-            
-            // });
             if(value.hasOwnProperty("story")){
                 $('.feed-'+index).append('<h3>' + value.story + '</h3>');
             }
             if(value.hasOwnProperty("message")){
                 $('.feed-'+index).append('<h5>'+ value.message+'</h5>');
             }
-            if(value.hasOwnProperty('full-picture')){
-                $('.feed-'+index).append('<img src = "'+value.full-picture+'" width="500px" height="500px"></img');
+            if(value.hasOwnProperty('full_picture')){
+                $('.feed-'+index).append('<img src = "'+value.full_picture+'"class="feed-image"></img');
             }
-            
         });
     }
     else{
     }
     console.log(response);
 
+}
+
+function printErrorMessage(request, errorType,errorMessage){
+    alert(errorMessage);
 }

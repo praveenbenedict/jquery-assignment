@@ -1,6 +1,8 @@
 body{
     background-color: #e9ebee;
     font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
     
 }
 header{
@@ -29,4 +31,33 @@ header{
 }
 #feed{
     
+}
+@media screen and (max-width: 767px){
+    h3{
+        font-size: 25px;
+    }
+    h4{
+        font-size:16px;
+    }
+    h3{
+        font-size: 12px;
+    }
+
+    .feed-image{
+        width: 40vw;
+        height: 40vw;
+    }
+}
+
+@media screen and ((min-width:768) and (max-width : 1024px){
+    .feed-image{
+        width: 60vw;
+        height: 60vw;
+    }
+}
+@media screen and (min-width: 1025px){
+    .feed-image{
+        width: 60vw;
+        height: 60vw;
+    }
 }
